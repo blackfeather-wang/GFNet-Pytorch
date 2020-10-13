@@ -2,7 +2,18 @@
 
 This repo contains the official code and pre-trained models for the glance and focus network (GFNet).
 
-- [Glance and Focus: a Dynamic Approach to Reducing Spatial Redundancy in Image Classiﬁcation](https://arxiv.org/)
+- [Glance and Focus: a Dynamic Approach to Reducing Spatial Redundancy in Image Classiﬁcation](https://arxiv.org/abs/2010.05300)
+
+Citation
+
+```
+@inproceedings{NeurIPS2020_7866,
+        title = {Glance and Focus: a Dynamic Approach to Reducing Spatial Redundancy in Image Classification},
+       author = {Wang, Yulin and Lv, Kangchen and Huang, Rui and Song, Shiji and Yang, Le and Huang, Gao},
+    booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+         year = {2020},
+}
+```
 
 **Update on 2020/10/08: Release Pre-trained Models and the Inference Code on ImageNet.**
 
