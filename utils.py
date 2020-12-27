@@ -1,6 +1,22 @@
+import os
+import errno
+import math
+import shutil
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+
+def mkdir_p(path):
+    '''make dir if not exist'''
+    try:
+        os.mkdir(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
 
 
 class AverageMeter(object):
@@ -55,3 +71,34 @@ def get_patch(images, action_sequence, patch_size):
         patches.append(per_patch.view(1, per_patch.size(0), per_patch.size(1), per_patch.size(2)))
 
     return torch.cat(patches, 0)
+
+
+def adjust_learning_rate(optimizer, train_configuration, epoch, training_epoch_num, args):
+    """Sets the learning rate"""
+
+    backbone_lr = 0.5 * train_configuration['backbone_lr'] * \
+                  (1 + math.cos(math.pi * epoch / training_epoch_num))
+    if args.train_stage == 1:
+        fc_lr = 0.5 * train_configuration['fc_stage_1_lr'] * \
+                (1 + math.cos(math.pi * epoch / training_epoch_num))
+    elif args.train_stage == 3:
+        fc_lr = 0.5 * train_configuration['fc_stage_3_lr'] * \
+                (1 + math.cos(math.pi * epoch / training_epoch_num))
+
+    if train_configuration['train_model_prime']:
+        optimizer.param_groups[0]['lr'] = backbone_lr
+        optimizer.param_groups[1]['lr'] = backbone_lr
+        optimizer.param_groups[2]['lr'] = fc_lr
+    else:
+        optimizer.param_groups[0]['lr'] = backbone_lr
+        optimizer.param_groups[1]['lr'] = fc_lr
+
+    for param_group in optimizer.param_groups:
+        print(param_group['lr'])
+
+
+def save_checkpoint(state, is_best, checkpoint='checkpoint', filename='checkpoint.pth.tar'):
+    filepath = checkpoint + '/' + filename
+    torch.save(state, filepath)
+    if is_best:
+        shutil.copyfile(filepath, checkpoint + '/model_best.pth.tar')

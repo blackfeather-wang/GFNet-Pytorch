@@ -1,11 +1,11 @@
 from PIL import Image
 
-configurations = {
+model_configurations = {
     'resnet50': {
         'feature_num': 2048,
         'feature_map_channels': 2048,
         'policy_conv': False,
-        'policy_hidden_dim':1024,      
+        'policy_hidden_dim': 1024,
         'fc_rnn': True,
         'fc_hidden_dim': 1024,
         'image_size': 224,
@@ -17,7 +17,7 @@ configurations = {
         'feature_num': 1024,
         'feature_map_channels': 1024,
         'policy_conv': False,
-        'policy_hidden_dim':1024,      
+        'policy_hidden_dim': 1024,
         'fc_rnn': True,
         'fc_hidden_dim': 1024,
         'image_size': 224,
@@ -29,7 +29,7 @@ configurations = {
         'feature_num': 1664,
         'feature_map_channels': 1664,
         'policy_conv': False,
-        'policy_hidden_dim':1024,      
+        'policy_hidden_dim': 1024,
         'fc_rnn': True,
         'fc_hidden_dim': 1024,
         'image_size': 224,
@@ -41,7 +41,7 @@ configurations = {
         'feature_num': 1920,
         'feature_map_channels': 1920,
         'policy_conv': False,
-        'policy_hidden_dim':1024,      
+        'policy_hidden_dim': 1024,
         'fc_rnn': True,
         'fc_hidden_dim': 1024,
         'image_size': 224,
@@ -135,5 +135,69 @@ configurations = {
         'dataset_interpolation': Image.BILINEAR,
         'prime_interpolation': 'bilinear',
         'cfg_file': 'pycls/cfgs/RegNetY-1.6GF_dds_8gpu.yaml'
+    }
+}
+
+
+train_configurations = {
+    'resnet': {
+        'backbone_lr': 0.01,
+        'fc_stage_1_lr': 0.1,
+        'fc_stage_3_lr': 0.01,
+        'weight_decay': 1e-4,
+        'momentum': 0.9,
+        'Nesterov': True,
+        'batch_size': 256,
+        'dsn_ratio': 1,
+        'epoch_num': 60,
+        'train_model_prime': True
+    },
+    'densenet': {
+        'backbone_lr': 0.01,
+        'fc_stage_1_lr': 0.1,
+        'fc_stage_3_lr': 0.01,
+        'weight_decay': 1e-4,
+        'momentum': 0.9,
+        'Nesterov': True,
+        'batch_size': 256,
+        'dsn_ratio': 1,
+        'epoch_num': 60,
+        'train_model_prime': True
+    },
+    'efficientnet': {
+        'backbone_lr': 0.005,
+        'fc_stage_1_lr': 0.1,
+        'fc_stage_3_lr': 0.01,
+        'weight_decay': 1e-4,
+        'momentum': 0.9,
+        'Nesterov': True,
+        'batch_size': 256,
+        'dsn_ratio': 5,
+        'epoch_num': 30,
+        'train_model_prime': False
+    },
+    'mobilenetv3': {
+        'backbone_lr': 0.005,
+        'fc_stage_1_lr': 0.1,
+        'fc_stage_3_lr': 0.01,
+        'weight_decay': 1e-4,
+        'momentum': 0.9,
+        'Nesterov': True,
+        'batch_size': 256,
+        'dsn_ratio': 5,
+        'epoch_num': 90,
+        'train_model_prime': False
+    },
+    'regnet': {
+        'backbone_lr': 0.02,
+        'fc_stage_1_lr': 0.1,
+        'fc_stage_3_lr': 0.01,
+        'weight_decay': 5e-5,
+        'momentum': 0.9,
+        'Nesterov': True,
+        'batch_size': 256,
+        'dsn_ratio': 1,
+        'epoch_num': 60,
+        'train_model_prime': True
     }
 }

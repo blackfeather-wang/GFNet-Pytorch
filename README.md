@@ -16,6 +16,7 @@ Citation
 ```
 
 **Update on 2020/10/08: Release Pre-trained Models and the Inference Code on ImageNet.**
+**Update on 2020/12/28: Release Training Code.**
 
 ## Introduction
 
@@ -90,7 +91,7 @@ For example, it further reduces the average latency of the highly efﬁcient Mob
 - torchvision 0.4.2
 - pyyaml 5.3.1 (for RegNets)
 
-## Get Started
+## Evaluate Pre-trained Models
 
 Read the evaluation results saved in pre-trained models
 ```
@@ -121,6 +122,26 @@ ImageNet
 
 ```
 
+
+## Training Models
+
+- Here we take training ResNet-50 (96x96, T=5) for example. All the used initialization models and stage-1/2 checkpoints can be found in [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/ac7c47b3f9b04e098862/). Currently, this link includes ResNet and MobileNet-V3. We will update it as soon as possible. If you need help, feel free to contact us.
+
+Training stage 1, the initializations of global encoder (model_prime) and local encoder (model) are required:
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_url PATH_TO_DATASET --train_stage 1 --model_arch resnet50 --patch_size 96 --T 5 --print_freq 10 --model_prime_path PATH_TO_CHECKPOINTS  --model_path PATH_TO_CHECKPOINTS
+```
+
+Training stage 2, a stage-1 checkpoint is required:
+```
+CUDA_VISIBLE_DEVICES=0 python train.py --data_url PATH_TO_DATASET --train_stage 2 --model_arch resnet50 --patch_size 96 --T 5 --print_freq 10 --checkpoint_path PATH_TO_CHECKPOINTS
+```
+
+Training stage 3, a stage-2 checkpoint is required:
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 python train.py --data_url PATH_TO_DATASET --train_stage 3 --model_arch resnet50 --patch_size 96 --T 5 --print_freq 10 --checkpoint_path PATH_TO_CHECKPOINTS
+```
+
 ## Contact
 If you have any question, please feel free to contact the authors. Yulin Wang: wang-yl19@mails.tsinghua.edu.cn.
 
@@ -128,5 +149,5 @@ If you have any question, please feel free to contact the authors. Yulin Wang: w
 Our code of MobileNet-V3 and EfficientNet is from [here](https://github.com/rwightman/pytorch-image-models). Our code of RegNet is from [here](https://github.com/facebookresearch/pycls).
 
 ## To Do
-Update the code for training and visualizing.
+Update the code for visualizing.
 

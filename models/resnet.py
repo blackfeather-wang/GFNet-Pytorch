@@ -1,9 +1,5 @@
-import torch
 import torch.nn as nn
 import torch.utils.model_zoo as model_zoo
-import torch.nn.functional as F
-# import ISDA_imagenet
-
 
 __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
            'resnet152', 'resnext50_32x4d', 'resnext101_32x8d']
@@ -183,11 +179,7 @@ class ResNet(nn.Module):
 
         output = self.avgpool(x)
         output = output.view(x.size(0), -1)
-        # x = self.fc(x)
-
-        return output, \
-               x.view(x.size(0), -1).detach()
-#         return output, output.detach()
+        return output, x.detach()
 
 
 def resnet18(pretrained=False, **kwargs):
@@ -198,10 +190,6 @@ def resnet18(pretrained=False, **kwargs):
     model = ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
     if pretrained:
         model.load_state_dict(model_zoo.load_url(model_urls['resnet18']))
-
-    # if pretrained:
-    #     model.load_state_dict(torch.load('/root/zhangh/wyl/resnet18-5c106cde.pth'))
-
 
     return model
 
@@ -253,73 +241,17 @@ def resnet152(pretrained=False, **kwargs):
 
 def resnext50_32x4d(pretrained=False, **kwargs):
     model = ResNet(Bottleneck, [3, 4, 6, 3], groups=32, width_per_group=4, **kwargs)
-    # if pretrained:
-    #     model.load_state_dict(model_zoo.load_url(model_urls['resnext50_32x4d']))
+    if pretrained:
+        model.load_state_dict(model_zoo.load_url(model_urls['resnext50_32x4d']))
     return model
 
 
 def resnext101_32x8d(pretrained=False, **kwargs):
     model = ResNet(Bottleneck, [3, 4, 23, 3], groups=32, width_per_group=8, **kwargs)
-    # if pretrained:
-    #     model.load_state_dict(model_zoo.load_url(model_urls['resnext101_32x8d']))
+    if pretrained:
+        model.load_state_dict(model_zoo.load_url(model_urls['resnext101_32x8d']))
     return model
-
-#
-# for (k, _) in resnet18().state_dict().items():
-#     print(k)
-
 
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
-
-#
-# print(count_parameters(resnext101_32x8d()))
-# exit()
-#
-#
-# import xlrd
-#
-# correspond = xlrd.open_workbook('./name_correspond.xlsx')
-# correspond.sheet_names()
-# # print("sheets：" + str(correspond.sheet_names()))
-# table = correspond.sheet_by_name('工作表2')
-# # print(table.cell(1,1).value)
-# # print(table.nrows)
-# # # exit()
-#
-
-
-# print(resnet101())
-
-# device = torch.device('cpu')
-#
-#
-# from collections import OrderedDict
-#
-# dict = OrderedDict()
-#
-# state_dict = torch.load('./checkpoint.pth.tar', map_location=device)['state_dict']
-# # state_dict = torch.load('res101_isda.pth', map_location=device)
-#
-#
-# for k, v in state_dict.items():
-#     dict[k[7:]] = v
-#
-#
-# state_dict_ori = torch.load('./official_resnet50-19c8e357.pth', map_location=device)
-#
-#
-# for k, _ in state_dict_ori.items():
-#
-#     if state_dict_ori[k].size() != dict[k].size():
-#         print(k)
-#         print(state_dict_ori[k].size())
-#         print(dict[k].size())
-#         input('error!')
-#
-#     state_dict_ori[k] = dict[k]
-#
-#
-# torch.save(state_dict_ori, 'resnet50-19c8e357.pth')
-#

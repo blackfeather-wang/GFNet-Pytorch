@@ -388,4 +388,4 @@ class AnyNet(nn.Module):
         # print(x.shape)
         output = self.head(x)
         # print(output.shape)
-        return output, x.view(x.size(0), -1).detach()
+        return output, x.detach()

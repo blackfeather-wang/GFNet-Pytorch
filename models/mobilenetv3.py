@@ -99,7 +99,7 @@ class MobileNetV3(nn.Module):
         x = self.global_pool(features)
         x = self.conv_head(x)
         x = self.act2(x)
-        return x, features.view(features.size(0), -1).detach()
+        return x, features.detach()
 
     def forward(self, x):
         x, features = self.features(x)

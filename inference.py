@@ -1,11 +1,6 @@
-import torch
-import torchvision
-import torch.nn as nn
-import torch.nn.functional as F
+
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
-import torch.optim as optim
-import numpy as np
 
 import torch.multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')
@@ -24,7 +19,7 @@ from models import create_model
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-parser = argparse.ArgumentParser(description='ImageNet Adaptive Inference')
+parser = argparse.ArgumentParser(description='Inference code for GFNet')
 
 parser.add_argument('--data_url', default='./data', type=str,
                     help='path to the dataset (ImageNet)')
@@ -44,19 +39,30 @@ def main():
     # load pretrained model
     checkpoint = torch.load(args.checkpoint_path)
 
-    model_arch = checkpoint['model_name']
-    patch_size = checkpoint['patch_size']
-    prime_size = checkpoint['patch_size']
-    flops = checkpoint['flops']
-    model_flops = checkpoint['model_flops']
-    policy_flops = checkpoint['policy_flops']
-    fc_flops = checkpoint['fc_flops']
-    anytime_classification = checkpoint['anytime_classification']
-    budgeted_batch_classification = checkpoint['budgeted_batch_classification']
-    dynamic_threshold = checkpoint['dynamic_threshold']
-    maximum_length = len(checkpoint['flops'])
+    try:
+        model_arch = checkpoint['model_name']
+        patch_size = checkpoint['patch_size']
+        prime_size = checkpoint['patch_size']
+        flops = checkpoint['flops']
+        model_flops = checkpoint['model_flops']
+        policy_flops = checkpoint['policy_flops']
+        fc_flops = checkpoint['fc_flops']
+        anytime_classification = checkpoint['anytime_classification']
+        budgeted_batch_classification = checkpoint['budgeted_batch_classification']
+        dynamic_threshold = checkpoint['dynamic_threshold']
+        maximum_length = len(checkpoint['flops'])
+    except:
+        print('Error: \n'
+              'Please provide essential information'
+              'for customized models (as we have done '
+              'in pre-trained models)!\n'
+              'At least the following information should be Given: \n'
+              '--model_name: name of the backbone CNNs (e.g., resnet50, densenet121)\n'
+              '--patch_size: size of image patches (i.e., H\' or W\' in the paper)\n'
+              '--flops: a list containing the Multiply-Adds corresponding to each '
+              'length of the input sequence during inference')
 
-    model_configuration = configurations[model_arch]
+    model_configuration = model_configurations[model_arch]
 
     if args.eval_mode > 0:
         # create model
@@ -167,9 +173,6 @@ def main():
     print('budgeted_batch_classification :', budgeted_batch_classification)
 
 
-
-        
-
 def generate_logits(model_prime, model, fc, memory, policy, dataloader, maximum_length, prime_size, patch_size, model_arch):
 
     logits_list = []
@@ -187,7 +190,7 @@ def generate_logits(model_prime, model, fc, memory, policy, dataloader, maximum_
         target_var = target.cuda()
         input_var = x.cuda()
 
-        input_prime = get_prime(input_var, prime_size, configurations[model_arch]['prime_interpolation'])
+        input_prime = get_prime(input_var, prime_size, model_configurations[model_arch]['prime_interpolation'])
 
         with torch.no_grad():
 

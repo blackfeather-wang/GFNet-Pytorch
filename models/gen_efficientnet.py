@@ -269,7 +269,7 @@ class GenEfficientNet(nn.Module):
         x = x.flatten(1)
         if self.drop_rate > 0.:
             x = F.dropout(x, p=self.drop_rate, training=self.training)
-        return x, feature.view(feature.size(0),-1).detach()
+        return x, feature.detach()
 
 
 def _create_model(model_kwargs, variant, pretrained=False):

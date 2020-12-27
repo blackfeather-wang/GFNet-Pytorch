@@ -3,7 +3,6 @@ import re
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.utils.model_zoo as model_zoo
 from collections import OrderedDict
 
 __all__ = ['DenseNet', 'densenet121', 'densenet169', 'densenet201', 'densenet161']
@@ -230,5 +229,4 @@ class DenseNet(nn.Module):
         features = self.features(x)
         x = F.relu(features, inplace=True)
         out = self.avgpool(x).view(features.size(0), -1)
-        # out = self.classifier(out)
-        return out, x.view(x.size(0), -1).detach()
+        return out, x.detach()
