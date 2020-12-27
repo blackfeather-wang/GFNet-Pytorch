@@ -16,6 +16,7 @@ Citation
 ```
 
 **Update on 2020/10/08: Release Pre-trained Models and the Inference Code on ImageNet.**
+
 **Update on 2020/12/28: Release Training Code.**
 
 ## Introduction
@@ -125,7 +126,9 @@ ImageNet
 
 ## Training Models
 
-- Here we take training ResNet-50 (96x96, T=5) for example. All the used initialization models and stage-1/2 checkpoints can be found in [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/ac7c47b3f9b04e098862/). Currently, this link includes ResNet and MobileNet-V3. We will update it as soon as possible. If you need help, feel free to contact us.
+- Here we take training ResNet-50 (96x96, T=5) for example. All the used initialization models and stage-1/2 checkpoints can be found in [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/ac7c47b3f9b04e098862/). Currently, this link includes ResNet and MobileNet-V3. We will update it as soon as possible. If you need other helps, feel free to contact us.
+
+- The Results in the paper is based on 2 Tesla V100 GPUs. For most of experiments, up to 4 Titan Xp GPUs may be enough.
 
 Training stage 1, the initializations of global encoder (model_prime) and local encoder (model) are required:
 ```
@@ -149,5 +152,7 @@ If you have any question, please feel free to contact the authors. Yulin Wang: w
 Our code of MobileNet-V3 and EfficientNet is from [here](https://github.com/rwightman/pytorch-image-models). Our code of RegNet is from [here](https://github.com/facebookresearch/pycls).
 
 ## To Do
-Update the code for visualizing.
+- Update the code for visualizing.
+
+- Update the code for MIXED PRECISION TRAINING。
 
