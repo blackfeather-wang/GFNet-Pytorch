@@ -88,7 +88,7 @@ For example, it further reduces the average latency of the highly efﬁcient Mob
 
 ## Requirements
 - python 3.7.7
-- torch 1.3.1
+- pytorch 1.3.1
 - torchvision 0.4.2
 - pyyaml 5.3.1 (for RegNets)
 
