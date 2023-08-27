@@ -35,14 +35,14 @@ For example, it further reduces the average latency of the highly efﬁcient Mob
 }
 
 @article{huang2022glance,
-        title={Glance and focus networks for dynamic visual recognition},
+        title={Glance and Focus Networks for Dynamic Visual Recognition}, 
         author={Huang, Gao and Wang, Yulin and Lv, Kangchen and Jiang, Haojun and Huang, Wenhui and Qi, Pengfei and Song, Shiji},
-        journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+        journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+        year={2023},
         volume={45},
         number={4},
-        pages={4605--4621},
-        year={2022},
-        publisher={IEEE}
+        pages={4605-4621},
+        doi={10.1109/TPAMI.2022.3196959}
 }
 ```
 
