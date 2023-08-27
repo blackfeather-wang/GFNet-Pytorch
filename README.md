@@ -1,23 +1,13 @@
-# GFNet-Pytorch (NeurIPS 2020)
+# Glance-and-Focus Networks (PyTorch)
 
-This repo contains the official code and pre-trained models for the glance and focus network (GFNet).
+This repo contains the official code and pre-trained models for the glance and focus networks (GFNet).
 
-- [Glance and Focus: a Dynamic Approach to Reducing Spatial Redundancy in Image Classiﬁcation](https://arxiv.org/abs/2010.05300)
-
-Citation
-
-```
-@inproceedings{NeurIPS2020_7866,
-        title = {Glance and Focus: a Dynamic Approach to Reducing Spatial Redundancy in Image Classification},
-       author = {Wang, Yulin and Lv, Kangchen and Huang, Rui and Song, Shiji and Yang, Le and Huang, Gao},
-    booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
-         year = {2020},
-}
-```
-
-**Update on 2020/10/08: Release Pre-trained Models and the Inference Code on ImageNet.**
+- (NeurIPS 2020) [Glance and Focus: a Dynamic Approach to Reducing Spatial Redundancy in Image Classiﬁcation](https://arxiv.org/abs/2010.05300)
+- (T-PAMI) [Glance and Focus Networks for Dynamic Visual Recognition](https://arxiv.org/abs/2201.03014)
 
 **Update on 2020/12/28: Release Training Code.**
+
+**Update on 2020/10/08: Release Pre-trained Models and the Inference Code on ImageNet.**
 
 ## Introduction
 
@@ -31,6 +21,32 @@ For example, it further reduces the average latency of the highly efﬁcient Mob
 <p align="center">
     <img src="figures/overview.png" width= "810">
 </p>
+
+
+
+## Citation
+
+```
+@inproceedings{NeurIPS2020_7866,
+        title={Glance and Focus: a Dynamic Approach to Reducing Spatial Redundancy in Image Classification},
+        author={Wang, Yulin and Lv, Kangchen and Huang, Rui and Song, Shiji and Yang, Le and Huang, Gao},
+        booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+        year={2020},
+}
+
+@article{huang2022glance,
+        title={Glance and focus networks for dynamic visual recognition},
+        author={Huang, Gao and Wang, Yulin and Lv, Kangchen and Jiang, Haojun and Huang, Wenhui and Qi, Pengfei and Song, Shiji},
+        journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+        volume={45},
+        number={4},
+        pages={4605--4621},
+        year={2022},
+        publisher={IEEE}
+}
+```
+
+
 
 ## Results
 
